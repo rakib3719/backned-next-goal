@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema(
       default: false,
     },
     premiumExpireDate: {
-      type: Date,
+      type: String,
       default: null,
     },
   },
