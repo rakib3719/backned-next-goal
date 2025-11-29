@@ -8,7 +8,7 @@ const JWT_EXPIRES = "7d"; // token valid for 7 days
 // ========== REGISTER ==========
 export const userRegister = async (req, res) => {
   try {
-    const { email, password, role, firstName, lastName } = req.body;
+    const { email, password, role, firstName, lastName, graduationYear,  position, gpa,  team,  weight, height } = req.body;
 
     const isExist = await User.findOne({ email });
     if (isExist) {
@@ -22,7 +22,13 @@ export const userRegister = async (req, res) => {
       password: hashPassword,
       role,
       firstName,
-      lastName
+      lastName,
+      graduationYear,
+      position,
+      gpa,
+      team,
+      weight,
+      height
     });
 
     const savedUser = await newUser.save();
@@ -103,6 +109,28 @@ export const getUser = async(req, res)=>{
   } catch (error) {
     res.status(500).json({
       message:"Somnething went wrong!"
+    })
+  }
+}
+
+
+export const allUser = async(req, res)=>{
+  try {
+  const skip = parseInt(req.query.skip) || 0;
+  const limit = parseInt(req.query.limit) || 10;
+  const users = await User.find({})
+    .sort({ createdAt: -1 })
+    .skip(skip)
+    .limit(limit);
+
+
+    res.status(200).json({      message:"Success",
+      data:users
+    })
+    
+  } catch (error) {
+    res.status(500).json({
+      message:error.message 
     })
   }
 }

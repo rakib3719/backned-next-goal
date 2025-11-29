@@ -27,7 +27,6 @@ const userSchema = new mongoose.Schema(
     name: String,
     image: String,
     location: String,
-
     isPremium: {
       type: Boolean,
       default: false,
@@ -36,6 +35,16 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: null,
     },
+    position: {
+      type: String,
+      enum: ["left back", "right back"],
+      required: false
+    },
+    graduationYear: String,
+    gpa: String,
+    height: String,
+    weight: String,
+    team: String
   },
   { timestamps: true }
 );
