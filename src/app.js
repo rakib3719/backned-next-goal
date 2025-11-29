@@ -14,6 +14,8 @@ app.use(
     origin: [
       "http://localhost:3000",
       "https://next-goal-dashboard.vercel.app",
+      "https://college-connector.com",
+      "http://college-connector.com"
     ],
     credentials: true,
   })
