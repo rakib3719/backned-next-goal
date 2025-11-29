@@ -90,8 +90,8 @@ export const createSession = async (req, res) => {
           userId: user._id.toString()
         }
       },
-      success_url: `http://localhost:3000/subscription-details/upgrade-plan`,
-      cancel_url: `http://localhost:3000/subscription-details/upgrade-plan`,
+      success_url: `https://college-connector.com/subscription-details/upgrade-plan`,
+      cancel_url: `https://college-connector.com/subscription-details/upgrade-plan`,
     });
 
     // ✅ Premium record create

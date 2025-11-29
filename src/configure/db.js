@@ -8,7 +8,7 @@ const connectDB = async()=>{
 
 
 try {
-    const connect = await mongoose.connect('mongodb+srv://next_goal:zcQBM09IcEXIRfSc@cluster0.vsivf.mongodb.net/?appName=Cluster0', {
+    const connect = await mongoose.connect('mongodb://localhost:27017/', {
         dbName: 'next-goal', 
       });
    console.log(`moongdo db connected `);
