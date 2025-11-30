@@ -4,6 +4,7 @@ import nodemailer from 'nodemailer';
 import dbConnect from '../configure/db.js'; // আপনার database connection file
 import Email from '../models/EmailModel.js';
 import Coach from '../models/CoachModel.js';
+import Premium from '../models/PremiumModel.js';
 
 // Configure multer for file uploads
 const storage = multer.memoryStorage();
@@ -42,6 +43,55 @@ export const sendEmail = async (req, res) => {
 
     // Extract form data
     const { subject, body, sender, recipient, coachId, coachData } = req.body;
+
+    const senderUser = await Premium.findOne({email:sender});
+    const plan = senderUser.plan;
+const nows = new Date();
+
+// today start (UTC)
+const startOfToday = new Date(Date.UTC(
+  nows.getUTCFullYear(),
+  nows.getUTCMonth(),
+  nows.getUTCDate(),
+  0, 0, 0, 0
+));
+
+// today end (UTC)
+const endOfToday = new Date(Date.UTC(
+ nows.getUTCFullYear(),
+ nows.getUTCMonth(),
+  nows.getUTCDate(),
+  23, 59, 59, 999
+));
+
+const todaysCount = await Email.countDocuments({
+  sender,
+  createdAt: { $gte: startOfToday, $lte: endOfToday }
+});
+
+
+
+if(plan == "Plus" && todaysCount >= 25){
+  res.status(401).json({
+    message:"Your daily quota is reach out"
+  })
+}
+if(plan == "Starter" && todaysCount >= 15){
+  res.status(401).json({
+    message:"Your daily quota is reach out"
+  })
+}
+if(plan == "Max" && todaysCount >= 30){
+  res.status(401).json({
+    message:"Your daily quota is reach out"
+  })
+}
+
+console.log(todaysCount, "this is todays count")
+
+
+
+
     
     // Get attachments from files
     const attachments = req.files || [];
@@ -374,6 +424,59 @@ export const myEmail = async (req, res) => {
     res.status(500).json({
       error: error.message,
       message: "Failed to fetch emails"
+    });
+  }
+};
+
+
+
+
+export const checkLimit = async (req, res) => {
+  try {
+    const email = req.params.email;
+
+    const senderUser = await Premium.findOne({ email });
+
+    if (!senderUser) {
+      return res.status(404).json({
+        message: "User not found in Premium collection",
+      });
+    }
+
+    const plan = senderUser.plan;
+
+    const now = new Date();
+
+    const startOfToday = new Date(Date.UTC(
+      now.getUTCFullYear(),
+      now.getUTCMonth(),
+      now.getUTCDate(),
+      0, 0, 0, 0
+    ));
+
+    const endOfToday = new Date(Date.UTC(
+      now.getUTCFullYear(),
+      now.getUTCMonth(),
+      now.getUTCDate(),
+      23, 59, 59, 999
+    ));
+
+    // IMPORTANT: field must be "sender", not "email"
+    const todaysCount = await Email.countDocuments({
+      sender: email,
+      createdAt: { $gte: startOfToday, $lte: endOfToday }
+    });
+
+    return res.status(200).json({
+      message: "Success",
+      todaysCount,
+      plan,
+    });
+
+  } catch (error) {
+    return res.status(500).json({
+      message: error?.message,
+      error
     });
   }
 };

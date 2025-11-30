@@ -7,7 +7,7 @@
 6 silly config load:file:C:\Users\rakib\npm-global\etc\npmrc
 7 verbose title npm run dev
 8 verbose argv "run" "dev"
-9 verbose logfile logs-max:10 dir:C:\project\next-goal\backend\UsersmynameAppDataRoamingnpm-cache\_logs\2025-11-23T12_09_39_400Z-
-10 verbose logfile C:\project\next-goal\backend\UsersmynameAppDataRoamingnpm-cache\_logs\2025-11-23T12_09_39_400Z-debug-0.log
+9 verbose logfile logs-max:10 dir:C:\project\next-goal\backend\UsersmynameAppDataRoamingnpm-cache\_logs\2025-11-30T03_19_00_238Z-
+10 verbose logfile C:\project\next-goal\backend\UsersmynameAppDataRoamingnpm-cache\_logs\2025-11-30T03_19_00_238Z-debug-0.log
 11 silly logfile start cleaning logs, removing 1 files
 12 silly logfile done cleaning log files
