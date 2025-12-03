@@ -30,15 +30,16 @@ export const createSession = async (req, res) => {
     // ✅ SUBSCRIPTION PRICE IDs
     const subscriptionPlans = {
       Starter: { 
-        price_id: "price_1SVV5oP0aOrzI3fiMzJ57JoR",
+       price_id: process.env.STARTER_PRICE_ID,
+
         name: "Starter Plan" 
       },
       Plus: { 
-        price_id: "price_1SVV64P0aOrzI3fiZvpLJBoS",
+             price_id: process.env.PLUS_PRICE_ID,
         name: "Plus Plan" 
       },
       Max: { 
-        price_id: "price_1SVV6IP0aOrzI3fiiXPfotdO",
+          price_id: process.env.MAX_PRICE_ID,
         name: "Max Plan" 
       },
     };
