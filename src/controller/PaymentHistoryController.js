@@ -1,3 +1,4 @@
+import Email from "../models/EmailModel.js";
 import PaymentHistory from "../models/PaymentHistoryModel.js";
 import Premium from "../models/PremiumModel.js";
 import User from "../models/UserModel.js";
@@ -15,7 +16,7 @@ export const userOverview = async(req, res)=>{
         .sort({ endDate: -1 })
         .select('endDate');
 
-        const totalSubscriptions = await Premium.countDocuments({ email: email });
+        const totalSubscriptions = await Email.countDocuments({ sender: email });
 
         const totalPaymentThisMontsh = await PaymentHistory.aggregate([
             { 
