@@ -8,7 +8,7 @@ const JWT_EXPIRES = "7d"; // token valid for 7 days
 // ========== REGISTER ==========
 export const userRegister = async (req, res) => {
   try {
-    const { email, password, role, firstName, lastName, graduationYear,  position, gpa,  team,  weight, height } = req.body;
+    const { email, password, role, firstName, lastName, graduationYear,  position, gpa,  team,  weight, height, sport } = req.body;
 
     const isExist = await User.findOne({ email });
     if (isExist) {
@@ -28,7 +28,8 @@ export const userRegister = async (req, res) => {
       gpa,
       team,
       weight,
-      height
+      height,
+      sport
     });
 
     const savedUser = await newUser.save();

@@ -15,6 +15,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Last Name Is Required"],
     },
+    sport:{
+      type:String,
+
+
+    },
     password: String,
     role: {
       type: String,
