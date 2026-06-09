@@ -137,8 +137,8 @@ console.log(todaysCount, "this is todays count")
       port: 587,
       secure: false, 
       auth: {
-        user: "bannah76769@gmail.com",
-        pass: "noqq kzxv olzf clzz",
+        user: "athleteconnect4@gmail.com",
+        pass: "athleteconnection8329$",
       },
     });
 
@@ -157,7 +157,7 @@ console.log(todaysCount, "this is todays count")
 
     // Prepare email options
     const mailOptions = {
-      from: sender || "bannah76769@gmail.com",
+      from: sender || "athleteconnect4@gmail.com",
       to: recipient,
       subject: subject || 'No Subject',
       text: body || 'No content',
