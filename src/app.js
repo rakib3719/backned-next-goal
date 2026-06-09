@@ -9,17 +9,36 @@ export const app = express();
 
 app.post("/api/webhook", express.raw({ type: "application/json" }), webHook);
 
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://127.0.0.1:3000",
+  "https://next-goal-dashboard.vercel.app",
+  "https://college-connector.com",
+  "http://college-connector.com",
+  "https://www.college-connector.com",
+  "http://www.college-connector.com"
+];
+
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000",
-      "https://next-goal-dashboard.vercel.app",
-      "https://college-connector.com",
-      "http://college-connector.com",
-    ],
+    origin: function (origin, callback) {
+      // allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        var msg = 'The CORS policy for this site does not ' +
+                  'allow access from the specified Origin.';
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "Accept"],
     credentials: true,
-  }),
+    optionsSuccessStatus: 200
+  })
 );
+
+app.options("*", cors());
 
 // app.use(cors({
 //   origin: "*"
