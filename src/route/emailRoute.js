@@ -10,3 +10,5 @@ router.post("/send", sendEmail);
 router.get("/checkLimit/:email", checkLimit);
 router.get("/:email", myEmail);
 export default router;
+// test
+// sdf
